@@ -22,7 +22,7 @@ app.use(express.json());
 
 app.listen(port, () => console.log(`Server started on port ${port}`));
 
-// R = all rows
+/* R = Read all rows */
 app.get('/kpopidols', async (req, res) => {
     try {
         const connection = await mysql.createConnection(dbConfig);
@@ -31,13 +31,12 @@ app.get('/kpopidols', async (req, res) => {
         );
         res.json(rows);
     } catch (err) {
-        console.error(err);
         res.status(500).json({ message: 'Read error' });
     }
 });
 
-// C = add row
-app.post('/kpopidols', async (req, res) => {
+/* C = Create row */
+app.post('/addkpopidols', async (req, res) => {
     const { idol_name, idol_pic } = req.body;
     try {
         const connection = await mysql.createConnection(dbConfig);
@@ -47,13 +46,12 @@ app.post('/kpopidols', async (req, res) => {
         );
         res.status(201).json({ message: 'Created' });
     } catch (err) {
-        console.error(err);
         res.status(500).json({ message: 'Create error' });
     }
 });
 
-// U = update row
-app.put('/kpopidols/:id', async (req, res) => {
+/* U = Update row */
+app.put('/updatekpopidols/:id', async (req, res) => {
     const { id } = req.params;
     const { idol_name, idol_pic } = req.body;
     try {
@@ -64,13 +62,12 @@ app.put('/kpopidols/:id', async (req, res) => {
         );
         res.json({ message: 'Updated' });
     } catch (err) {
-        console.error(err);
         res.status(500).json({ message: 'Update error' });
     }
 });
 
-// D = delete row
-app.delete('/kpopidols/:id', async (req, res) => {
+/* D = Delete row */
+app.delete('/deletekpopidols/:id', async (req, res) => {
     const { id } = req.params;
     try {
         const connection = await mysql.createConnection(dbConfig);
@@ -80,7 +77,6 @@ app.delete('/kpopidols/:id', async (req, res) => {
         );
         res.json({ message: 'Deleted' });
     } catch (err) {
-        console.error(err);
         res.status(500).json({ message: 'Delete error' });
     }
 });
