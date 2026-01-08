@@ -40,3 +40,25 @@ app.get('/kpopidols', async (req, res) => {
 
     }
 });
+
+// Example Route: Create a new KPOP idol
+app.post('/addkpopidol', async (req, res) => {
+    const { idol_name, idol_pic } = req.body;
+
+    try {
+
+        let connection = await mysql.createConnection(dbConfig);
+        await connection.execute(
+            'INSERT INTO defaultdb.KPOPIdols (idol_name, idol_pic) VALUES (?, ?)',
+            [idol_name, idol_pic]
+        );
+
+        res.status(201).json({ message: 'KPOP idol ' + idol_name + ' added successfully' });
+
+    } catch (err) {
+
+        console.error(err);
+        res.status(500).json({ message: 'Server error - could not add kpop idol ' + idol_name });
+
+    }
+});
