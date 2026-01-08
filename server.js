@@ -30,7 +30,7 @@ app.get('/kpopidols', async (req, res) => {
     try {
 
         let connection = await mysql.createConnection(dbConfig);
-        const [rows] = await connection.execute('SELECT * FROM defaultdb.kpop_idols');
+        const [rows] = await connection.execute('SELECT * FROM defaultdb.KPOPIdols');
         res.json(rows);
 
     } catch (err) {
